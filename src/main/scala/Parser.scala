@@ -153,7 +153,8 @@ object Parser {
 
     import spark.implicits._
 
-    val tasks = events.filter(_.contains("SparkListenerTaskEnd")).
+    val tasks = events.
+      filter(_.contains("SparkListenerTaskEnd")).
       map(string => parseJSON[SparkTaskEnd](string))
 
     val joined = tasks.joinWith(sparkStage,
@@ -180,6 +181,7 @@ object Parser {
         val stageId = tuple._2.stageId
         val stageAttemptId = tuple._2.stageAttemptId
         val taskId = taskInfo.`Task$u0020ID`
+        val taskType = tuple._1.`Task Type`
         val attempt = taskInfo.`Attempt`
         val executorId = taskInfo.`Executor$u0020ID`
         val host = taskInfo.`Host`
@@ -261,6 +263,7 @@ object Parser {
           stageAttemptId,
           taskId,
           attempt,
+          taskType,
           executorId,
           host,
           peakMemory,
