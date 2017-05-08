@@ -131,6 +131,10 @@ root
  |-- totalRecordsRead: string (nullable = true)
 
 
+scala> val taskInfo = taskProfile(spark, tasks)
+taskInfo: org.apache.spark.sql.DataFrame = [summary: string, taskDuration: string ... 20 more fields]
+
+
 scala> taskInfo.select("summary", "taskDuration", "peakMemory", "inputRows", "outputRows").show
 +-------+-----------------+-------------------+--------------------+--------------------+
 |summary|     taskDuration|         peakMemory|           inputRows|          outputRows|
